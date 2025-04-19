@@ -1,0 +1,352 @@
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background: linear-gradient(to bottom, #f0f0f0, #d9d9d9);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent scrolling */
+    display: flex; /* Center content */
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #444;
+}
+
+.dashboard {
+    display: flex;
+    justify-content: flex-start; /* Align content to the left */
+    gap: 30px;
+    align-items: flex-start;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    max-width: 100%; /* Ensure it doesn't exceed the screen width */
+    max-height: 100%; /* Ensure it doesn't exceed the screen height */
+    overflow: hidden; /* Prevent overflow */
+}
+
+#chessboard {
+    display: grid;
+    grid-template-columns: repeat(8, 80px); /* Adjust size as needed */
+    grid-template-rows: repeat(8, 80px);
+    gap: 1px;
+    border: 3px solid #333;
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add shadow */
+    background: #444;
+    overflow: hidden;
+}
+
+.square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+}
+
+.square:hover {
+    background-color: rgba(255, 215, 0, 0.7); /* Highlight on hover */
+    transform: scale(1.05);
+}
+
+.square.active {
+  background-color: rgba(144, 238, 144, 0.6); /* Light green with transparency */
+  outline: 1px solid rgba(0, 0, 0, 0.2); /* Subtle border to maintain block boundaries */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add a slight shadow for better visibility */
+}
+
+.white {
+    background-color: #f0d9b5;
+}
+
+.black {
+    background-color: #b58863;
+    color: black; /* Ensure black pieces are always displayed in black */
+}
+
+.active {
+    background-color: yellow !important;
+}
+
+.info-panel, .player-panel {
+    width: 220px;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.info-panel {
+    flex-grow: 1; /* Take the remaining width */
+    padding: 20px;
+    background: #f9f9f9; /* Subtle background color */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    text-align: left;
+    min-width: 300px; /* Ensure a minimum width */
+    max-width: 500px; /* Optional: Limit maximum width */
+    overflow: hidden; /* Prevent content overflow */
+}
+
+.info-panel h2, .player-panel h2 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.info-panel h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 2px solid #ddd; /* Underline for the title */
+    padding-bottom: 5px;
+}
+
+.captured {
+    min-height: 40px;
+    font-size: 28px;
+    color: #444;
+}
+
+#move-log {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: 'Courier New', monospace; /* Cleaner font for logs */
+    font-size: 16px;
+    max-height: 400px; /* Keep height consistent */
+    overflow-y: auto; /* Scrollable if content exceeds height */
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+#move-log li {
+    padding: 8px 12px; /* Add padding for better spacing */
+    border-bottom: 1px solid #eee; /* Subtle separator between moves */
+}
+
+#move-log li:nth-child(odd) {
+    background-color: #fdfdfd; /* Light background for odd rows */
+}
+
+#move-log li:nth-child(even) {
+    background-color: #f7f7f7; /* Slightly darker background for even rows */
+}
+
+.side-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+}
+
+.player-panel {
+    width: 640px; /* Match the chessboard width (8 squares * 80px each) */
+    padding: 10px;
+    background: #f7f7f7; /* Match the move log theme */
+    border: 1px solid #ddd;
+    border-radius: 25px; /* Capsule-like shape */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Align text content to the left */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: row; /* Arrange items horizontally */
+    align-items: center; /* Vertically align items */
+    justify-content: space-between; /* Space between title and timer */
+    gap: 10px; /* Space between elements */
+    position: relative; /* Ensure child elements can be positioned absolutely if needed */
+}
+
+.player-panel h2 {
+    font-size: 1.5em;
+    margin: 0;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align text to the left */
+    gap: 10px; /* Space between "Black"/"White" and captured pieces */
+    width: 100%; /* Ensure it spans the full width of the container */
+    text-align: left; /* Align text content to the left */
+}
+
+.captured {
+    font-size: 1.2em;
+    color: #555;
+    background: #fff; /* Capsule background */
+    border: 1px solid #ddd;
+    border-radius: 15px; /* Capsule-like shape */
+    padding: 5px 15px; /* Add padding for capsule effect */
+    display: inline-block;
+    min-width: 50px; /* Ensure space for captured pieces */
+    text-align: left; /* Align content to the left */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional: Add hover effect for capsules */
+.captured:hover {
+    background: #f0f0f0;
+    border-color: #ccc;
+}
+
+.controls, .time-controls {
+    display: flex;
+    justify-content: space-between; /* Space between elements */
+    margin-top: 20px;
+    width: 100%; /* Match the width of the info-panel */
+}
+
+.controls button, .time-controls input, .time-controls button {
+    flex: 1; /* Equal width for all elements */
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.controls button {
+    color: #fff;
+    background-color: #444;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 5px; /* Add spacing between buttons */
+}
+
+.controls button:hover {
+    background-color: #666; /* Darker background on hover */
+}
+
+.controls button:active {
+    background-color: #333; /* Even darker background on click */
+}
+
+@media (max-width: 768px) {
+    #chessboard {
+        grid-template-columns: repeat(8, 40px);
+        grid-template-rows: repeat(8, 40px);
+    }
+
+    .info-panel, .player-panel {
+        width: 100%; /* Full width on smaller screens */
+        text-align: center;
+    }
+
+    .player-panel {
+        width: 100%; /* Full width on smaller screens */
+    }
+}
+
+#logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-family: 'Cursive', 'Roboto', Arial, sans-serif; /* Fancy font */
+    font-size: 2.0em; /* Set font size */
+    font-weight: bold;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#logo span {
+    color: #222;
+    font-size: 0.8em; /* Match font size */
+    font-weight: normal;
+}
+
+#time-limit, #start-button {
+    flex: 1; /* Equal width for both input and button */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+}
+
+#time-limit {
+    margin-right: 10px; /* Add spacing between input and button */
+}
+
+#start-button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#start-button:hover {
+    background-color: #666;
+}
+
+#start-button:active {
+    background-color: #333;
+}
+
+.player-panel.black {
+    position: relative;
+}
+
+.player-panel.white {
+    position: relative;
+}
+
+.timer {
+    font-size: 1.2em;
+    font-weight: bold;
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 5px 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100px; /* Set a fixed width for consistency */
+    color: #000; /* Ensure the font color is black */
+}
+
+.time-controls input {
+    border: 1px solid #ccc;
+    margin-right: 10px; /* Space between input and button */
+}
+
+.time-controls button {
+    flex: 1; /* Button takes less space */
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #444;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.time-controls button:hover {
+    background-color: #666; /* Darker background on hover */
+}
+
+.time-controls button:active {
+    background-color: #333; /* Even darker background on click */
+}
+
+.time-controls select {
+    flex: 2; /* Dropdown takes more space */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    margin-right: 10px; /* Space between dropdown and button */
+    background-color: #fff; /* White background for dropdown */
+    cursor: pointer;
+}

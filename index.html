@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Chessboard Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="logo">
+    ♛ <span>ChessTrace</span>
+  </div>
+
+  <div class="dashboard">
+
+    <div class="side-column">
+      <div class="player-panel black" data-player="black">
+        <h2>Black</h2>
+        <span id="black-captured" class="captured"></span>
+        <div id="black-timer" class="timer">10:00</div>
+      </div>
+  
+      <div id="chessboard"></div>
+  
+      <div class="player-panel white" data-player="white">
+        <h2>White</h2>
+        <span id="white-captured" class="captured"></span>
+        <div id="white-timer" class="timer">10:00</div>
+      </div>
+    </div>
+  
+    <div class="info-panel">
+      <h2>Move History</h2>
+      <ul id="move-log"></ul>
+      <div class="controls">
+        <button id="undo-button">Undo</button>
+        <button id="restart-button">Restart</button>
+      </div>
+      <div class="time-controls">
+        <select id="time-limit" aria-label="Select time limit">
+            <option value="1">1 Minute</option>
+            <option value="5">5 Minutes</option>
+            <option value="10" selected>10 Minutes</option>
+            <option value="15">15 Minutes</option>
+            <option value="30">30 Minutes</option>
+        </select>
+        <button id="start-button">Start</button>
+      </div>
+    </div>
+  
+  </div>  
+
+  <script src="script.js"></script>
+</body>
+</html>
