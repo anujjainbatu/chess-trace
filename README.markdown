@@ -1,6 +1,6 @@
 # 🧠♟️ ChessTrace: Low-Cost Smart Chessboard with Cloud-Based Algebraic Notation Recording
 
-![Project Banner](/assets/banner.png)
+![Project Banner](/assets/chess-trace-banner.png)
 
 ## 📌 Overview
 
