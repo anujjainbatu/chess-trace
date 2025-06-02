@@ -18,13 +18,19 @@
 ## 🖼️ Preview
 
 ### ✅ Final Product
-![Final Smart Chessboard](/assets/final_board.jpg)
+![Final Smart Chessboard](/assets/product.png)
+![Final Smart Chessboard](/assets/product-2.png)
+
+### ✅ Detection Technology
+![Final Smart Chessboard](/assets/detection_technologies.png)
+![Final Smart Chessboard](/assets/detection_technologies_back.png)
 
 ### 💡 System Architecture
-![System Architecture Diagram](/assets/architecture_diagram.png)
+![System Architecture Diagram](/assets/solution_architecture_dia.jpeg)
+![System Architecture Diagram](/assets/solution_architecture.jpeg)
 
 ### 🔎 Web Interface
-![Web UI Screenshot](/assets/web_dashboard.png)
+![Web UI Screenshot](/assets/UX_UI.jpg)
 
 ## 🛠️ Tech Stack
 
